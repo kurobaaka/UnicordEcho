@@ -40,7 +40,7 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
   const [interests, setInterests] = useState(
     user.interests ? user.interests : ""
   );
-  const [avatar, setAvatar] = useState(user.avatar ? user.avatar : "");
+  const [avatar, setAvatar] = useState(user.avatar ? user.avatar : null);
   const [avatarError, setAvatarError] = useState(null);
 
   const handleUpdateProfile = async () => {
@@ -164,8 +164,15 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
                       onChange={avatarUpdate}
                       autoComplete="off"
                     />
+                    {avatar && (
+                      <div className="mt-2 flex items-center justify-center">
+                        <span className="font-medium text-blue-500">{avatar.name}</span>
+                      </div>
+                    )}
                     {avatarError && (
-                      <p className="mt-2 text-sm text-red-600">{avatarError}</p>
+                      <div className="mt-2 flex items-center justify-center">
+                        <span className="text-red-500">{avatarError}</span>
+                      </div>
                     )}
                   </div>
 
@@ -248,8 +255,8 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
                   disabled={isUpdating}
                   type="button"
                   className={`inline-flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-base font-medium text-white shadow-sm focus:outline-none sm:ml-3 sm:w-auto sm:text-sm ${isUpdating
-                      ? "cursor-not-allowed bg-gray-400"
-                      : "bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    ? "cursor-not-allowed bg-gray-400"
+                    : "bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     }`}
                   onClick={handleUpdateProfile}
                 >
