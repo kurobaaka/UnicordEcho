@@ -441,8 +441,9 @@ const updateInfo = async (req, res) => {
       });
     }
 
-    const { location, interests, bio } = req.body;
+    const { avatar, location, interests, bio } = req.body;
 
+    user.avatar = avatar;
     user.location = location;
     user.interests = interests;
     user.bio = bio;
@@ -453,6 +454,7 @@ const updateInfo = async (req, res) => {
       message: "User info updated successfully",
     });
   } catch (err) {
+  console.log(err);
     res.status(500).json({
       message: "Error updating user info",
     });
