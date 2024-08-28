@@ -20,7 +20,7 @@ const suggestedInterests = [
   "🏞️ Travel",
   "🎯 Sports",        
   "📷 Photography",
-  "💻 Technology",
+  "💻 Code",
   "🧘‍♀️ Yoga",
   "🌱 Sustainability",
   "📝 Writing",

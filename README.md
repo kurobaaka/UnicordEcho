@@ -130,7 +130,7 @@ npm start
 ### Configuration
 
 Run the `admin_tool.sh` script from the server directory with permissions for executing the script. This script is used for configuring the admin account, creating the initial communities, and other settings.
-```bash
+```bash             
 ./admin_tool.sh
 ``` 
 
