@@ -41,7 +41,7 @@ const sendLoginVerificationEmail = async (req, res) => {
     });
 
     let info = await transporter.sendMail({
-      from: `"Unicord" <${USER}>`,
+      from: `"SocialEcho" <${USER}>`,
       to: email,
       subject: "Action Required: Verify Recent Login",
       html: verifyLoginHTML(

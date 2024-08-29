@@ -274,7 +274,7 @@ const getUser = async (req, res, next) => {
 /**
  * Adds a new user to the database with the given name, email, password, and avatar.
  *
- * @description If the email domain of the user's email is "mod.Unicord.com", the user will be
+ * @description If the email domain of the user's email is "mod.socialecho.com", the user will be
  * assigned the role of "moderator" by default, but not necessarily as a moderator of any community.
  * Otherwise, the user will be assigned the role of "general" user.
  *
@@ -299,7 +299,7 @@ const addUser = async (req, res, next) => {
     : defaultAvatar;
 
   const emailDomain = req.body.email.split("@")[1];
-  const role = emailDomain === "mod.Unicord.com" ? "moderator" : "general";
+  const role = emailDomain === "mod.socialecho.com" ? "moderator" : "general";
 
   newUser = new User({
     name: req.body.name,
@@ -441,9 +441,8 @@ const updateInfo = async (req, res) => {
       });
     }
 
-    const { avatar, location, interests, bio } = req.body;
+    const { location, interests, bio } = req.body;
 
-    user.avatar = avatar;
     user.location = location;
     user.interests = interests;
     user.bio = bio;
@@ -454,7 +453,6 @@ const updateInfo = async (req, res) => {
       message: "User info updated successfully",
     });
   } catch (err) {
-  console.log(err);
     res.status(500).json({
       message: "Error updating user info",
     });

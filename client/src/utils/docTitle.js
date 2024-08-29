@@ -22,7 +22,7 @@ const titleMap = {
  */
 export const getTitleFromRoute = (path) => {
   if (titleMap[path]) {
-    return `${titleMap[path]} | Unicord`;
+    return `${titleMap[path]} | SocialEcho`;
   }
 
   const userProfileRegex = /^\/user\/(\w+)$/;
@@ -31,12 +31,12 @@ export const getTitleFromRoute = (path) => {
     /^\/community\/(\w+)(\/report|\/reported-post|\/moderator)?$/;
 
   if (userProfileRegex.test(path)) {
-    return "User Profile | Unicord";
+    return "User Profile | SocialEcho";
   } else if (postRegex.test(path)) {
-    return "Post | Unicord";
+    return "Post | SocialEcho";
   } else if (communityRegex.test(path)) {
-    return "Community | Unicord";
+    return "Community | SocialEcho";
   }
 
-  return "Unicord";
+  return "SocialEcho";
 };

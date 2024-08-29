@@ -11,16 +11,21 @@ import { FiUser, FiMapPin, FiEdit } from "react-icons/fi";
 const suggestedInterests = [
   "🎨 Art",
   "📚 Books",
-  "♟️ Chess",
+  "💼 Business",
+  "🚗 Cars",
+  "📖 Comics",
   "🌍 Culture",
   "✏️ Design",
+  "🍽️ Food",
   "🎮 Gaming",
   "🎶 Music",
   "🏋️ Fitness",
   "🏞️ Travel",
-  "🎯 Sports",        
+  "🎯 Sports",
+  "🎬 Movies",
+  "📺 TV Shows",
   "📷 Photography",
-  "💻 Code",
+  "💻 Technology",
   "🧘‍♀️ Yoga",
   "🌱 Sustainability",
   "📝 Writing",
@@ -35,25 +40,15 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
   const [interests, setInterests] = useState(
     user.interests ? user.interests : ""
   );
-  const [avatar, setAvatar] = useState(user.avatar ? user.avatar : null);
-  const [avatarError, setAvatarError] = useState(null);
 
   const handleUpdateProfile = async () => {
     setIsUpdating(true);
 
-    const formData = new FormData();
-    formData.append("avatar", avatar);
-    formData.append("bio", bio);
-    formData.append("location", location);
-    formData.append("interests", interests);
-    if (avatar && avatar instanceof File) {
-      formData.append("avatar", avatar);
-    }
-
-    // Log the FormData content for debugging
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+    const formData = {
+      bio,
+      location,
+      interests,
+    };
 
     await dispatch(updateUserAction(user._id, formData));
     await dispatch(getUserAction(user._id));
@@ -62,29 +57,6 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
     setInterests("");
     setIsUpdating(false);
     onClose();
-  };
-
-  const avatarUpdate = (e) => {
-    const file = e.target.files[0];
-    if (!file) {
-      setAvatar(null);
-      setAvatarError(null);
-      return;
-    }
-    if (
-      file.type !== "image/jpeg" &&
-      file.type !== "image/png" &&
-      file.type !== "image/jpg"
-    ) {
-      setAvatar(null);
-      setAvatarError("Please upload a valid image file (jpeg, jpg, png)");
-    } else if (file.size > 10 * 1024 * 1024) {
-      setAvatar(null);
-      setAvatarError("Please upload an image file less than 10MB");
-    } else {
-      setAvatar(file);
-      setAvatarError(null);
-    }
   };
 
   return (
@@ -128,48 +100,6 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
                   >
                     Update Profile
                   </Dialog.Title>
-                  <div className="mt-4 flex flex-col items-center">
-                    <label htmlFor="avatar" className="cursor-pointer">
-                      {avatar ? (
-                        avatar instanceof File ? (
-                          <img
-                            src={URL.createObjectURL(avatar)}
-                            alt="Avatar"
-                            className="h-24 w-24 rounded-full object-cover"
-                          />
-                        ) : (
-                          <img
-                            src={avatar}
-                            alt="Avatar"
-                            className="h-24 w-24 rounded-full object-cover"
-                          />
-                        )
-                      ) : (
-                        <div className="h-24 w-24 rounded-full bg-gray-200 flex items-center justify-center">
-                          <FiUser className="h-12 w-12 text-gray-400" />
-                        </div>
-                      )}
-                    </label>
-                    <input
-                      id="avatar"
-                      type="file"
-                      className="hidden"
-                      name="avatar"
-                      accept="image/*"
-                      onChange={avatarUpdate}
-                      autoComplete="off"
-                    />
-                    {avatar && (
-                      <div className="mt-2 flex items-center justify-center">
-                        <span className="font-medium text-blue-500">{avatar.name}</span>
-                      </div>
-                    )}
-                    {avatarError && (
-                      <div className="mt-2 flex items-center justify-center">
-                        <span className="text-red-500">{avatarError}</span>
-                      </div>
-                    )}
-                  </div>
 
                   <div className="mt-4">
                     <div className="flex items-center space-x-2">
@@ -249,10 +179,11 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
                 <button
                   disabled={isUpdating}
                   type="button"
-                  className={`inline-flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-base font-medium text-white shadow-sm focus:outline-none sm:ml-3 sm:w-auto sm:text-sm ${isUpdating
-                    ? "cursor-not-allowed bg-gray-400"
-                    : "bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    }`}
+                  className={`inline-flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-base font-medium text-white shadow-sm focus:outline-none sm:ml-3 sm:w-auto sm:text-sm ${
+                    isUpdating
+                      ? "cursor-not-allowed bg-gray-400"
+                      : "bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  }`}
                   onClick={handleUpdateProfile}
                 >
                   {isUpdating ? (
