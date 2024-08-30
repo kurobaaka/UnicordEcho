@@ -34,6 +34,7 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
     setIsUpdating(true);
 
     const formData = {
+      name,
       bio,
       location,
       interests,
@@ -41,6 +42,7 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
 
     await dispatch(updateUserAction(user._id, formData));
     await dispatch(getUserAction(user._id));
+    setName("");
     setBio("");
     setLocation("");
     setInterests("");

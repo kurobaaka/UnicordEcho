@@ -441,11 +441,12 @@ const updateInfo = async (req, res) => {
       });
     }
 
-    const { location, interests, bio } = req.body;
+    const { location, interests, bio, name } = req.body;
 
     user.location = location;
     user.interests = interests;
     user.bio = bio;
+    user.name= name;
 
     await user.save();
 
