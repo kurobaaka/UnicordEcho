@@ -14,7 +14,7 @@ Before you can run the app, you need to have the following software installed on
 1. Clone the repository to your local machine:
 
 ```
-https://github.com/nz-m/SocialEcho.git
+https://github.com/kurobaaka/UnicordEcho.git
 ```
 
 2. Navigate to the project directory:
