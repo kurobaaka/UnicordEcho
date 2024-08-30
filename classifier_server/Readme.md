@@ -20,7 +20,7 @@ https://github.com/kurobaaka/UnicordEcho.git
 2. Navigate to the project directory:
 
 ```
-cd SocialEcho/classifier_server
+cd UnicordEcho/classifier_server
 ```
 
 3. Install the required Python packages:
