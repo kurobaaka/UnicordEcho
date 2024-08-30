@@ -23,7 +23,9 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
   const dispatch = useDispatch();
 
   const [isUpdating, setIsUpdating] = useState(false);
-  const [name, setName] = useState(user.name? user.name : "");
+  const [avatar, setAvatar] = useState(null);
+  const [avatarError, setAvatarError] = useState(null);
+  const [name, setName] = useState(user.name ? user.name : "");
   const [bio, setBio] = useState(user.bio ? user.bio : "");
   const [location, setLocation] = useState(user.location ? user.location : "");
   const [interests, setInterests] = useState(
@@ -34,6 +36,7 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
     setIsUpdating(true);
 
     const formData = {
+      avatar,
       name,
       bio,
       location,
@@ -48,6 +51,29 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
     setInterests("");
     setIsUpdating(false);
     onClose();
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      setAvatar(null);
+      setAvatarError(null);
+      return;
+    }
+    if (
+      file.type !== "image/jpeg" &&
+      file.type !== "image/png" &&
+      file.type !== "image/jpg"
+    ) {
+      setAvatar(null);
+      setAvatarError("Please upload a valid image file (jpeg, jpg, png)");
+    } else if (file.size > 10 * 1024 * 1024) {
+      setAvatar(null);
+      setAvatarError("Please upload an image file less than 10MB");
+    } else {
+      setAvatar(file);
+      setAvatarError(null);
+    }
   };
 
   return (
@@ -91,6 +117,46 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
                   >
                     Update Profile
                   </Dialog.Title>
+
+                  <label
+            htmlFor="avatar"
+            className="mx-auto mt-6 flex cursor-pointer items-center rounded-lg border-2 border-dashed bg-white px-3 py-3 text-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 text-gray-300"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+              />
+            </svg>
+            <h2 className="mx-3 text-gray-400">Profile Photo</h2>
+            <input
+              id="avatar"
+              type="file"
+              className="hidden"
+              name="avatar"
+              accept="image/*"
+              onChange={handleAvatarChange}
+              autoComplete="off"
+            />
+          </label>
+          {avatar && (
+            <div className="mt-2 flex items-center justify-center">
+              <span className="font-medium text-blue-500">{avatar.name}</span>
+            </div>
+          )}
+          {avatarError && (
+            <div className="mt-2 flex items-center justify-center">
+              <span className="text-red-500">{avatarError}</span>
+            </div>
+          )}
 
                   <div className="mt-4">
                     <div className="flex items-center space-x-2">
@@ -186,11 +252,10 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
                 <button
                   disabled={isUpdating}
                   type="button"
-                  className={`inline-flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-base font-medium text-white shadow-sm focus:outline-none sm:ml-3 sm:w-auto sm:text-sm ${
-                    isUpdating
+                  className={`inline-flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-base font-medium text-white shadow-sm focus:outline-none sm:ml-3 sm:w-auto sm:text-sm ${isUpdating
                       ? "cursor-not-allowed bg-gray-400"
                       : "bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                  }`}
+                    }`}
                   onClick={handleUpdateProfile}
                 >
                   {isUpdating ? (
