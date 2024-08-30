@@ -23,6 +23,7 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
   const dispatch = useDispatch();
 
   const [isUpdating, setIsUpdating] = useState(false);
+  const [name, setName] = useState(user.name? user.name : "");
   const [bio, setBio] = useState(user.bio ? user.bio : "");
   const [location, setLocation] = useState(user.location ? user.location : "");
   const [interests, setInterests] = useState(
@@ -88,6 +89,22 @@ const ProfileUpdateModal = ({ user, isOpen, onClose }) => {
                   >
                     Update Profile
                   </Dialog.Title>
+
+                  <div className="mt-4">
+                    <div className="flex items-center space-x-2">
+                      <FiUser className="text-gray-600" />
+                      <label className="block text-sm font-medium text-gray-700">
+                        Name
+                      </label>
+                    </div>
+                    <input
+                      type="text"
+                      className="mt-1 block w-full rounded-md border-b border-gray-300 p-2 outline-none"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </div>
+
 
                   <div className="mt-4">
                     <div className="flex items-center space-x-2">
