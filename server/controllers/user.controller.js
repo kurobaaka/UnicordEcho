@@ -441,12 +441,21 @@ const updateInfo = async (req, res) => {
       });
     }
 
-    const { location, interests, bio, name } = req.body;
+    const defaultAvatar =
+    "https://raw.githubusercontent.com/nz-m/public-files/main/dp.jpg";
+  const fileUrl = req.files?.[0]?.filename
+    ? `${req.protocol}://${req.get("host")}/assets/userAvatars/${
+        req.files[0].filename
+      }`
+    : defaultAvatar;
+
+    const { location, interests, bio, name, avatar } = req.body;
 
     user.location = location;
     user.interests = interests;
     user.bio = bio;
-    user.name= name;
+    user.name = name;
+    user.avatar = fileUrl,
 
     await user.save();
 
