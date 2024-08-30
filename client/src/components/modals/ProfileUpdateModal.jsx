@@ -10,17 +10,12 @@ import { FiUser, FiMapPin, FiEdit } from "react-icons/fi";
 
 const suggestedInterests = [
   "🎨 Art",
-  "📚 Books",
-  "💼 Business",
   "🌍 Culture",
   "✏️ Design",
-  "🍽️ Food",
-  "🎮 Gaming",
   "🎶 Music",
   "🎬 Movies",
   "📷 Photography",
   "💻 Code",
-  "🌱 Sustainability",
   "📝 Writing",
 ];
 
