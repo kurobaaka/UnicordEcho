@@ -66,7 +66,7 @@ const SignUpNew = () => {
   const [isConsentGiven, setIsConsentGiven] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModerator, setIsModerator] = useState(false);
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
