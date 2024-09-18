@@ -12,7 +12,6 @@ const suggestedInterests = [
   "🎨 Art",
   "🌍 Culture",
   "✏️ Design",
-  "🎶 Music",
   "🎬 Movies",
   "📷 Photography",
   "💻 Code",
