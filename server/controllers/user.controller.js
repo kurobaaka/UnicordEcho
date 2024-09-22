@@ -442,42 +442,29 @@ const updateInfo = async (req, res) => {
     }
 
     const defaultAvatar =
-      "https://raw.githubusercontent.com/nz-m/public-files/main/dp.jpg";
-    
-    // Устанавливаем URL аватара
-    const fileUrl = req.files?.[0]?.filename
-      ? `${req.protocol}://${req.get("host")}/assets/userAvatars/${req.files[0].filename}`
-      : defaultAvatar;
+    "https://raw.githubusercontent.com/nz-m/public-files/main/dp.jpg";
+  const fileUrl = req.files?.[0]?.filename
+    ? `${req.protocol}://${req.get("host")}/assets/userAvatars/${
+        req.files[0].filename
+      }`
+    : defaultAvatar;
 
-    // Деструктурируем данные из тела запроса
-    const { location, interests, bio, name } = req.body;
+    const { location, interests, bio, name, avatar } = req.body;
 
-    // Обновляем информацию о пользователе
     user.location = location;
     user.interests = interests;
     user.bio = bio;
     user.name = name;
-    user.avatar = fileUrl; // Устанавливаем аватар
+    user.avatar = fileUrl,
 
-    // Сохраняем изменения
     await user.save();
 
     res.status(200).json({
       message: "User info updated successfully",
-      user: {
-        id: user._id,
-        location: user.location,
-        interests: user.interests,
-        bio: user.bio,
-        name: user.name,
-        avatar: user.avatar,
-      },
     });
   } catch (err) {
-    console.error("Error updating user info:", err); // Логируем ошибку
     res.status(500).json({
       message: "Error updating user info",
-      error: err.message, // Возвращаем сообщение об ошибке
     });
   }
 };
