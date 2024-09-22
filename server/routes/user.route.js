@@ -66,7 +66,7 @@ router.post(
 );
 router.post("/logout", logout);
 
-router.put("/:id", requireAuth, decodeToken, updateInfo, avatarUpload,);
+router.put("/:id", requireAuth, decodeToken, updateInfo, avatarUpload);
 
 router.use(followLimiter);
 router.patch("/:id/follow", requireAuth, decodeToken, followUser);
